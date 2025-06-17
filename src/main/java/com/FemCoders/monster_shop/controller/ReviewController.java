@@ -2,6 +2,7 @@ package com.FemCoders.monster_shop.controller;
 
 import com.FemCoders.monster_shop.model.Review;
 import com.FemCoders.monster_shop.service.ReviewService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class ReviewController {
     }
 
     @PostMapping("/{productId}")
-    public Review create(@PathVariable Long productId, @RequestBody Review review) {
+    public Review create(@PathVariable Long productId, @RequestBody @Valid Review review) {
         return reviewService.saveReview(review, productId);
     }
 }
