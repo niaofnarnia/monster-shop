@@ -2,6 +2,7 @@ package com.FemCoders.monster_shop.controller;
 
 import com.FemCoders.monster_shop.model.Product;
 import com.FemCoders.monster_shop.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,12 +27,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
+    public Product create(@RequestBody @Valid Product product) {
         return productService.saveProduct(product);
     }
 
     @PutMapping("/{id}")
-    public Product update(@PathVariable Long id, @RequestBody Product product) {
+    public Product update(@PathVariable Long id, @RequestBody @Valid Product product) {
         product.setId(id);
         return productService.saveProduct(product);
     }
