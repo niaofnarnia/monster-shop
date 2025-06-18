@@ -1,12 +1,12 @@
 package com.FemCoders.monster_shop.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -89,4 +89,16 @@ public class Product {
     public void setFeatured(boolean featured) {
         this.featured = featured;
     }
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
 }
