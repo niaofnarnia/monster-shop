@@ -41,7 +41,6 @@ public class ProductService {
         Product existing = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Optional: update fields (or just re-map and keep the same ID)
         existing.setName(productRequest.getName());
         existing.setPrice(productRequest.getPrice());
         existing.setImageUrl(productRequest.getImageUrl());
