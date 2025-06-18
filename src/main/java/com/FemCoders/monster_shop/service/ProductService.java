@@ -39,7 +39,7 @@ public class ProductService {
 
     public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
         Product existing = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new RuntimeException("Product with ID " + id + " not found"));
 
         existing.setName(productRequest.getName());
         existing.setPrice(productRequest.getPrice());
@@ -51,6 +51,10 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new RuntimeException("Product with ID " + id + " not found.");
+        }
         productRepository.deleteById(id);
     }
+
 }
