@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class ReviewService {
 
@@ -32,12 +34,21 @@ public class ReviewService {
 
     public ReviewResponse saveReview(ReviewRequest reviewRequest, Long productId) {
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new RuntimeException("Product with ID " + productId + " not found"));
 
         Review review = ReviewMapper.toEntity(reviewRequest);
         review.setProduct(product);
+        reviewRepository.save(review);
 
-        Review saved = reviewRepository.save(review);
-        return ReviewMapper.toResponse(saved);
+        List<Review> reviews = reviewRepository.findByProductId(productId);
+        double average = reviews.stream().mapToDouble(Review::getRating).average().orElse(0);
+        int count = reviews.size();
+
+        product.setRating(average);
+        product.setReviewCount(count);
+        productRepository.save(product);
+
+        return ReviewMapper.toResponse(review);
+
     }
 }
