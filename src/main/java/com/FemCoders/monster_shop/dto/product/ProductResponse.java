@@ -11,8 +11,12 @@ public class ProductResponse {
     public void setId(Long id) {
         this.id = id;
     }
+
     private String name;
 
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -20,11 +24,19 @@ public class ProductResponse {
 
     private double price;
 
+    public double getPrice() {
+        return price;
+    }
+
     public void setPrice(double price) {
         this.price = price;
     }
 
     private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
@@ -51,6 +63,10 @@ public class ProductResponse {
     }
 
     private boolean featured;
+
+    public boolean isFeatured() {
+        return featured;
+    }
 
     public void setFeatured(boolean featured) {
         this.featured = featured;

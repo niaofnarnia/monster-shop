@@ -1,6 +1,7 @@
 package com.FemCoders.monster_shop.controller;
 
-import com.FemCoders.monster_shop.model.Product;
+import com.FemCoders.monster_shop.dto.product.ProductRequest;
+import com.FemCoders.monster_shop.dto.product.ProductResponse;
 import com.FemCoders.monster_shop.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -17,24 +19,23 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAll() {
+    public List<ProductResponse> getAll() {
         return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")
-    public Product getById(@PathVariable Long id) {
+    public ProductResponse getById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 
     @PostMapping
-    public Product create(@RequestBody @Valid Product product) {
-        return productService.saveProduct(product);
+    public ProductResponse create(@RequestBody @Valid ProductRequest productRequest) {
+        return productService.saveProduct(productRequest);
     }
 
     @PutMapping("/{id}")
-    public Product update(@PathVariable Long id, @RequestBody @Valid Product product) {
-        product.setId(id);
-        return productService.saveProduct(product);
+    public ProductResponse update(@PathVariable Long id, @RequestBody @Valid ProductRequest productRequest) {
+        return productService.updateProduct(id, productRequest);
     }
 
     @DeleteMapping("/{id}")
