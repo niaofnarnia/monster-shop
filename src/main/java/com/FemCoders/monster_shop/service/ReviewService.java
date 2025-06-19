@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @Service
 public class ReviewService {
 
@@ -41,14 +39,16 @@ public class ReviewService {
         reviewRepository.save(review);
 
         List<Review> reviews = reviewRepository.findByProductId(productId);
-        double average = reviews.stream().mapToDouble(Review::getRating).average().orElse(0);
-        int count = reviews.size();
+        double averageRating = reviews.stream()
+                .mapToDouble(Review::getRating)
+                .average()
+                .orElse(0.0);
+        int reviewCount = reviews.size();
 
-        product.setRating(average);
-        product.setReviewCount(count);
+        product.setRating(averageRating);
+        product.setReviewCount(reviewCount);
         productRepository.save(product);
 
         return ReviewMapper.toResponse(review);
-
     }
 }
