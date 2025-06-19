@@ -72,5 +72,16 @@ public class ProductResponse {
         this.featured = featured;
     }
 
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 }
 
