@@ -42,6 +42,7 @@ public class ProductService {
                 .orElseThrow(() -> new RuntimeException("Product with ID " + id + " not found"));
 
         existing.setName(productRequest.getName());
+        existing.setDescription(productRequest.getDescription());
         existing.setPrice(productRequest.getPrice());
         existing.setImageUrl(productRequest.getImageUrl());
         existing.setFeatured(productRequest.isFeatured());

@@ -8,6 +8,7 @@ public class ProductMapper {
         ProductResponse dto = new ProductResponse();
         dto.setId(product.getId());
         dto.setName(product.getName());
+        dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());
         dto.setImageUrl(product.getImageUrl());
         dto.setRating(product.getRating());
@@ -19,10 +20,13 @@ public class ProductMapper {
     public static Product toEntity(ProductRequest request) {
         Product product = new Product();
         product.setName(request.getName());
+        product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
         product.setImageUrl(request.getImageUrl());
         product.setFeatured(request.isFeatured());
         return product;
     }
+
+
 }
 
